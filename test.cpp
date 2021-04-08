@@ -4,16 +4,15 @@ using namespace std;
 
 int main()
 {
-    
-    MyVector<string> vector;
 
-    vector.push_in("Vinit Tekwani");
-    vector.push_in("Sandeep Jadam");
-    vector.push_in("Yashwant Sahu");
-    vector.push_in("Aman Khushalani");
-    vector.push_in("Kunal Verma");
+    MyVector<int> f;
 
-    vector.show_all();
-    
+    f.push_in(10);
+    f.push_in(15);
+    f.push_in(18);
+    f.push_in(16);
+
+    cout<<f.get_sum()<<endl;
+
     return 0;
 }

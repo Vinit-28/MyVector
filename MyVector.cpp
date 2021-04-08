@@ -16,6 +16,9 @@ class MyVector
         // Declaration of Private Member Functions //
         void resize_vector(datatype *vec_pointer);
         bool contains_a_vector();
+        char get_datatype();
+
+        
     
     public:
         // Declaration of Public Member Functions //
@@ -27,6 +30,8 @@ class MyVector
         bool is_element_exits(datatype data);
         datatype get_element(int ele_index);
         datatype& operator[](int pos);
+        datatype get_sum();
+
     
 };
 
@@ -209,4 +214,37 @@ datatype& MyVector<datatype>::operator[](int pos)
     }
 }
 
+
+
+// Method to get the sum of the vector //
+template<class datatype>
+datatype MyVector<datatype>:: get_sum()
+{
+    datatype sum='\0';
+    // string data_type = get_datatype();
+        
+    for(int i=0;i<get_length();i++)
+    {
+        sum+=vector[i];
+    }
+    return sum;
+}
+
+
+
+// Method to check whether the type of the vector is string/char or not //
+template<class datatype>
+char MyVector<datatype>:: get_datatype()
+{
+    string vec_type = typeid(vector).name();
+    if( vec_type=="Pc" )
+        return 'C';
+    else
+    {
+        long int len = vec_type.length(), index = vec_type.find("string");
+        if( index >= 0 && index <= len )
+            return 'S';
+    }
+    return 'N';
+}
 
