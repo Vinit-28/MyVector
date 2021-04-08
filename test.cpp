@@ -14,8 +14,6 @@ int main()
     vector.push_in("Kunal Verma");
 
     vector.show_all();
-
-    cout<<vector;
-
+    
     return 0;
 }

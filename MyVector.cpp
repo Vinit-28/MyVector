@@ -15,6 +15,7 @@ class MyVector
 
         // Declaration of Private Member Functions //
         void resize_vector(datatype *vec_pointer);
+        bool contains_a_vector();
     
     public:
         // Declaration of Public Member Functions //
@@ -34,8 +35,7 @@ class MyVector
 template<class datatype>
 ostream &operator<<(ostream &cout_obj, MyVector<datatype> &obj)
 {
-    return( cout_obj << "\nThis is an Object of Class \"MyVector\"" << endl );
-
+    return( cout_obj << "This is an Object of Class \"MyVector\"" << endl );
 }
 
 
@@ -61,6 +61,25 @@ void MyVector<datatype>::resize_vector(datatype *vec_pointer)
     }
     vector = vec_pointer;
 }
+
+
+// Method to Check Whether a Vector Contains a Vector or not //
+template<class datatype>
+bool MyVector<datatype>::contains_a_vector()
+{ 
+    string vector_type = typeid(vector).name();
+    long int index = vector_type.find("MyVector");
+
+    if( index>=0 && index<vector_type.length() )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 
 // Method to Pop data from a Vector //
