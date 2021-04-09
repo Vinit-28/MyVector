@@ -16,7 +16,6 @@ class MyVector
         // Declaration of Private Member Functions //
         void resize_vector(datatype *vec_pointer);
         bool contains_a_vector();
-        char get_datatype();
 
         
     
@@ -29,8 +28,10 @@ class MyVector
         void show_all();
         bool is_element_exits(datatype data);
         datatype get_element(int ele_index);
-        datatype& operator[](int pos);
         datatype get_sum();
+        datatype& operator[](int pos);
+        MyVector<datatype> operator+(MyVector vec_obj);
+        char get_datatype();
 
     
 };
@@ -40,7 +41,7 @@ class MyVector
 template<class datatype>
 ostream &operator<<(ostream &cout_obj, MyVector<datatype> &obj)
 {
-    return( cout_obj << "This is an Object of Class \"MyVector\"" << endl );
+    return( cout_obj << "< ClassObject \"MyVector\" >" << endl );
 }
 
 
@@ -161,11 +162,13 @@ void MyVector<datatype>::show_all()
     {
         cout << "\nVector is Empyt" << endl;
     }
-    for(int i=0;i<get_length();i++)
+    else
     {
-        cout << "\nVector [ " << i+1 << " ] Element :: " << vector[i];
+        for(int i=0;i<get_length();i++)
+        {
+            cout << "\nVector [ " << i+1 << " ] Element :: " << vector[i];
+        }
     }
-    cout << endl;
 }
 
 
@@ -215,18 +218,16 @@ template<class datatype>
 datatype MyVector<datatype>:: get_sum()
 {
     datatype sum='\0';
-    // string data_type = get_datatype();
-        
     for(int i=0;i<get_length();i++)
     {
-        sum+=vector[i];
+        sum = sum+vector[i];
     }
     return sum;
 }
 
 
 
-// Method to check whether the type of the vector is string/char or not //
+// Method to get the type of the vector //
 template<class datatype>
 char MyVector<datatype>:: get_datatype()
 {
@@ -244,3 +245,22 @@ char MyVector<datatype>:: get_datatype()
     return 'N';
 }
 
+
+
+// Method to Overload the '+' Operator Which will help to add two vectors //
+template<class datatype>
+MyVector<datatype> MyVector<datatype>:: operator+(MyVector vec_obj)
+{
+    MyVector<datatype> temp;
+
+    for(int i=0;i<get_length();i++)
+    {
+        temp.push_in(vector[i]);
+    }
+
+    for(int i=0;i<vec_obj.get_length();i++)
+    {
+        temp.push_in(vec_obj[i]);
+    }
+    return temp;
+}
