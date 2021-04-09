@@ -72,17 +72,11 @@ void MyVector<datatype>::resize_vector(datatype *vec_pointer)
 template<class datatype>
 bool MyVector<datatype>::contains_a_vector()
 { 
-    string vector_type = typeid(vector).name();
-    long int index = vector_type.find("MyVector");
-
-    if( index>=0 && index<vector_type.length() )
+    if(get_datatype()=='V')
     {
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 
@@ -241,9 +235,11 @@ char MyVector<datatype>:: get_datatype()
         return 'C';
     else
     {
-        long int len = vec_type.length(), index = vec_type.find("string");
-        if( index >= 0 && index <= len )
+        long int len = vec_type.length(), str_index = vec_type.find("string"), MyVector_index = vec_type.find("MyVector");
+        if( str_index >= 0 && str_index < len )
             return 'S';
+        if( MyVector_index >= 0 && MyVector_index < len)
+            return 'V';
     }
     return 'N';
 }
