@@ -23,6 +23,7 @@ class MyVector
         // Declaration of Public Member Functions //
         void push_in(datatype data);
         void pop_out();
+        void flush_vector();
         void sort(bool reverse=false);
         int get_length();
         void show_all();
@@ -37,12 +38,95 @@ class MyVector
 };
 
 
+// --------------- Function Definitions --------------- //
+
+
+
 // Function to give a little bit detail about the object of the class "MyVector" //
 template<class datatype>
 ostream &operator<<(ostream &cout_obj, MyVector<datatype> &obj)
 {
     return( cout_obj << "< ClassObject \"MyVector\" >" << endl );
 }
+
+
+
+// Function to give a little bit detail about the object of the class "MyVector" //
+template<class datatype>
+MyVector<MyVector<datatype>> matrix_multiplication( MyVector<MyVector<datatype>> Matrix1, MyVector<MyVector<datatype>> Matrix2 )
+{
+
+    MyVector<MyVector<datatype>> Resultant_Matrix;
+
+    if( ! ( Matrix1[0].get_datatype() == 'N' && Matrix2[0].get_datatype() == 'N' ) )
+    {
+        cout << "\nMultiplication is possible only with Numeric Datatypes" << endl;
+    }
+    else
+    {
+        if( are_matrices_Compatibility_for_matrix_multiplication(Matrix1,Matrix2) )
+        {
+            int R1 = Matrix1.get_length(),R2 = Matrix2.get_length(), C1 = Matrix1[0].get_length(),C2 = Matrix2[0].get_length();
+            MyVector<datatype> EmptyRow;
+            
+            for( int i=0; i < R1; i++ )
+            {
+                Resultant_Matrix.push_in(EmptyRow);
+                for( int j=0; j < C2; j++ )
+                {
+                    Resultant_Matrix[i].push_in(0);
+                    for( int k=0; k < C1; k++ )
+                    {
+                        Resultant_Matrix[i][j] += ( Matrix1[i][k] * Matrix2[k][j] );
+                    }
+                }
+            }
+        }
+        else
+        {
+            cout << "\nDimensions are not Compatible for Matrix Multiplication" << endl;
+        }
+    }
+    return Resultant_Matrix;
+}
+
+
+
+
+
+template<class datatype>
+bool are_matrices_Compatibility_for_matrix_multiplication( MyVector<MyVector<datatype>> Matrix1, MyVector<MyVector<datatype>> Matrix2 )
+{
+    int R2 = Matrix2.get_length(),C1 = Matrix1[0].get_length(), C2 = Matrix2[0].get_length();
+    if( C1 == R2 )
+    {
+        for(int i=0;i<Matrix1.get_length();i++)
+        {
+            if( C1 != (Matrix1[i].get_length()) )
+                return false;
+        }
+
+        for(int i=0;i<R2;i++)
+        {
+            if( C2 != (Matrix2[i].get_length()) )
+                return false;
+        }
+
+        return true;
+    }
+    return false;
+}
+
+
+
+// --------------- End of Function Definitions --------------- //
+
+
+
+
+
+
+// --------------- Class "MyVector"'s Methods Definitions --------------- //
 
 
 // Method to Push data in a Vector //
@@ -97,6 +181,19 @@ void MyVector<datatype>::pop_out()
         resize_vector(vec_pointer);
     }
 }
+
+
+
+// Method to flush/delete all the elements from  a Vector //
+template<class datatype>
+void MyVector<datatype>::flush_vector()
+{
+    index=-1;
+    total_elements=0;
+    datatype *vec_pointer = new datatype[total_elements];
+    resize_vector(vec_pointer);
+}
+
 
 
 // Method to get an element of a particular index from a Vector //
@@ -297,3 +394,5 @@ int MyVector<datatype>:: implement_binary_search(datatype element_to_search)
     }
     return -1;
 }
+
+// --------------- End of Class "MyVector"'s Methods Definitions --------------- //
