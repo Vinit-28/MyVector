@@ -16,6 +16,8 @@ class MyVector
         // Declaration of Private Member Functions //
         void resize_vector(datatype *vec_pointer);
         bool contains_a_vector();
+        char get_datatype();
+
 
         
     
@@ -32,9 +34,8 @@ class MyVector
         datatype get_sum();
         datatype& operator[](int pos);
         MyVector<datatype> operator+(MyVector vec_obj);
-        char get_datatype();
         int implement_binary_search(datatype element_to_search);
-    
+        datatype get_product();
 };
 
 
@@ -51,7 +52,7 @@ ostream &operator<<(ostream &cout_obj, MyVector<datatype> &obj)
 
 
 
-// Function to give a little bit detail about the object of the class "MyVector" //
+// Function to multiply two matrices and return the resultant matrix //
 template<class datatype>
 MyVector<MyVector<datatype>> matrix_multiplication( MyVector<MyVector<datatype>> Matrix1, MyVector<MyVector<datatype>> Matrix2 )
 {
@@ -93,7 +94,7 @@ MyVector<MyVector<datatype>> matrix_multiplication( MyVector<MyVector<datatype>>
 
 
 
-
+// Function to check whether the muplication between two matrices is possible or not //
 template<class datatype>
 bool are_matrices_Compatibility_for_matrix_multiplication( MyVector<MyVector<datatype>> Matrix1, MyVector<MyVector<datatype>> Matrix2 )
 {
@@ -270,7 +271,7 @@ void MyVector<datatype>::show_all()
 
 
 
-// Method to check whether an element exists ina vector or not //
+// Method to check whether an element exists in a vector or not //
 template<class datatype>
 bool MyVector<datatype>::is_element_exits(datatype data)
 {
@@ -363,7 +364,7 @@ MyVector<datatype> MyVector<datatype>:: operator+(MyVector vec_obj)
 }
 
 
-// Method to Overload the '+' Operator Which will help to add two vectors //
+// Method to implement binary search on the vector //
 template<class datatype>
 int MyVector<datatype>:: implement_binary_search(datatype element_to_search)
 {
@@ -394,5 +395,19 @@ int MyVector<datatype>:: implement_binary_search(datatype element_to_search)
     }
     return -1;
 }
+
+
+
+// Method to find the product of the vector //
+template<class datatype>
+datatype MyVector<datatype>:: get_product()
+{
+    datatype product=1;
+    for(int i=0;i<get_length();i++)
+        product*=vector[i];
+    return product;
+}
+
+
 
 // --------------- End of Class "MyVector"'s Methods Definitions --------------- //
