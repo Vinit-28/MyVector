@@ -32,7 +32,7 @@ class MyVector
         datatype& operator[](int pos);
         MyVector<datatype> operator+(MyVector vec_obj);
         char get_datatype();
-
+        int implement_binary_search(datatype element_to_search);
     
 };
 
@@ -166,7 +166,7 @@ void MyVector<datatype>::show_all()
     {
         for(int i=0;i<get_length();i++)
         {
-            cout << "\nVector [ " << i+1 << " ] Element :: " << vector[i];
+            cout << "\nVector [ " << i << " ] Element :: " << vector[i];
         }
     }
 }
@@ -263,4 +263,37 @@ MyVector<datatype> MyVector<datatype>:: operator+(MyVector vec_obj)
         temp.push_in(vec_obj[i]);
     }
     return temp;
+}
+
+
+// Method to Overload the '+' Operator Which will help to add two vectors //
+template<class datatype>
+int MyVector<datatype>:: implement_binary_search(datatype element_to_search)
+{
+    if(get_length()==0)
+    {
+        cout << "\nVector is Empty" << endl;
+    }
+    else
+    {
+        sort(true);
+        int lower=0,upper=(get_length()-1),middle = ((lower+upper)/2);
+        while(upper>=lower)
+        {
+            if( vector[middle] == element_to_search )
+            {
+                return middle;
+            }
+            else if( vector[middle] < element_to_search )
+            {
+                lower = middle + 1;
+            }
+            else
+            {
+                upper = middle - 1;
+            }
+            middle = ((lower+upper)/2);
+        }
+    }
+    return -1;
 }
