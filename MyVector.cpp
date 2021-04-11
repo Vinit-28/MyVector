@@ -26,16 +26,20 @@ class MyVector
         void push_in(datatype data);
         void pop_out();
         void flush_vector();
-        void sort(bool reverse=false);
+        void sort(bool reverse=false, int starting_index = 0, int ending_index = -1);
         int get_length();
-        void show_all();
+        void show_elements(int starting_index = 0, int ending_index = -1, int steps = 1);
         bool is_element_exits(datatype data);
         datatype get_element(int ele_index);
-        datatype get_sum();
+        datatype get_sum(int starting_index = 0, int ending_index = -1, int steps = 1);
         datatype& operator[](int pos);
         MyVector<datatype> operator+(MyVector vec_obj);
         int implement_binary_search(datatype element_to_search);
-        datatype get_product();
+        datatype get_product(int starting_index = 0, int ending_index = -1, int steps = 1);
+        datatype get_max(int starting_index = -1, int ending_index = -1);
+        datatype get_min(int start=-1, int end=-1);
+        datatype find_min_and_max( string operation, int start=-1, int end=-1);
+
 };
 
 
@@ -225,7 +229,7 @@ int MyVector<datatype>::get_length()
 
 // Method to Sort the vector ( By-default it will sort the vector in Ascending order but a user can sort the vector in Descending order by passing value of parameter reverse true ) //
 template<class datatype>
-void MyVector<datatype>::sort(bool reverse)
+void MyVector<datatype>::sort(bool reverse, int starting_index, int ending_index)
 {
     if(get_length()==0)
     {
@@ -234,9 +238,11 @@ void MyVector<datatype>::sort(bool reverse)
     else
     {
         datatype temp;
-        for(int i=0;i<get_length();i++)
+        if(ending_index == -1)
+            ending_index=get_length();
+        for(int i=starting_index;i<ending_index;i++)
         {
-            for(int j=i+1;j<get_length();j++)
+            for(int j=i+1;j<ending_index;j++)
             {
                 if( (reverse==true && vector[i]<vector[j])  || (reverse==false && vector[i]>vector[j]) )
                 {
@@ -254,7 +260,7 @@ void MyVector<datatype>::sort(bool reverse)
 
 // Method to Show all Elements of a Vector //
 template<class datatype>
-void MyVector<datatype>::show_all()
+void MyVector<datatype>::show_elements( int starting_index , int ending_index , int steps )
 {
     if(get_length()==0)
     {
@@ -262,9 +268,13 @@ void MyVector<datatype>::show_all()
     }
     else
     {
-        for(int i=0;i<get_length();i++)
+        if( ending_index == -1)
+            get_length();
+
+        for(int i=starting_index;i<ending_index;i+= steps)
         {
-            cout << "\nVector [ " << i << " ] Element :: " << vector[i];
+            if(i<total_elements)
+                cout << "\nVector [ " << i << " ] Element :: " << vector[i];
         }
     }
 }
@@ -313,12 +323,22 @@ datatype& MyVector<datatype>::operator[](int pos)
 
 // Method to get the sum of the vector //
 template<class datatype>
-datatype MyVector<datatype>:: get_sum()
+datatype MyVector<datatype>:: get_sum(int starting_index, int ending_index, int steps)
 {
-    datatype sum='\0';
-    for(int i=0;i<get_length();i++)
+    datatype sum;
+    if(get_length() == 0)
     {
-        sum = sum+vector[i];
+        cout << "Vector is Empty" <<endl;
+    }
+    else
+    {   
+        if( ending_index == -1)
+            ending_index = get_length();
+        sum=vector[starting_index];
+
+        for(int i=starting_index+steps; i<ending_index; i += steps)
+            if (i<total_elements)
+                sum = sum+vector[i];
     }
     return sum;
 }
@@ -400,12 +420,75 @@ int MyVector<datatype>:: implement_binary_search(datatype element_to_search)
 
 // Method to find the product of the vector //
 template<class datatype>
-datatype MyVector<datatype>:: get_product()
+datatype MyVector<datatype>:: get_product(int starting_index , int ending_index , int steps )
 {
-    datatype product=1;
-    for(int i=0;i<get_length();i++)
-        product*=vector[i];
+    datatype product;
+    if(get_length()==0)
+    {
+        cout<< "\nVector is Empty" <<endl;
+    }
+    else
+    {
+        if( ending_index == -1)
+            ending_index=get_length();
+
+        product = vector[starting_index];
+        
+        for(int i=starting_index+steps; i<ending_index; i+=steps)
+            if ( i<total_elements )
+                product*=vector[i];
+    }
     return product;
+}
+
+
+
+// Method to find the product of the vector //
+template<class datatype>
+datatype MyVector<datatype>:: find_min_and_max( string operation, int starting_index, int ending_index )
+{
+    datatype value;
+
+    if(get_length()==0)
+    {
+        cout << "\nVector is Empty" << endl;
+    }
+    else
+    {
+        value = vector[starting_index];
+        
+        if( ending_index == -1)
+            ending_index = get_length();
+        
+        for(int index = starting_index; index < ending_index; index++ )
+        {
+            if( i < total_elements )
+                if ( (operation == "Max" && vector[index] > value) || (operation == "Min" && vector[index] < value) )
+                    value = vector[index];
+        }
+    }
+    return value;
+}
+
+
+
+
+// Method to find the product of the vector //
+template<class datatype>
+datatype MyVector<datatype>:: get_max(int starting_index, int ending_index)
+{
+    datatype max_value = find_min_and_max("Max", starting_index, ending_index);
+    return max_value;
+}
+
+
+
+// Method to find the product of the vector //
+template<class datatype>
+datatype MyVector<datatype>:: get_min(int starting_index, int ending_index)
+{
+    datatype min_value = find_min_and_max("Min", starting_index, ending_index);
+    return min_value;
 }
 
 
