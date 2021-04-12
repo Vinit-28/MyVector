@@ -26,15 +26,19 @@ class MyVector
         void push_in(datatype data);
         void pop_out();
         void flush_vector();
-        void sort(bool reverse=false, int starting_index = 0, int ending_index = -1);
-        int get_length();
         void show_elements(int starting_index = 0, int ending_index = -1, int steps = 1);
+        void sort(bool reverse=false, int starting_index = 0, int ending_index = -1);
+        
+        int get_length();
+        int implement_binary_search(datatype element_to_search);
+        
         bool is_element_exits(datatype data);
+        bool operator<( MyVector vec_obj);
+        
         datatype get_element(int ele_index);
         datatype get_sum(int starting_index = 0, int ending_index = -1, int steps = 1);
         datatype& operator[](int pos);
         MyVector<datatype> operator+(MyVector vec_obj);
-        int implement_binary_search(datatype element_to_search);
         datatype get_product(int starting_index = 0, int ending_index = -1, int steps = 1);
         datatype get_max(int starting_index = -1, int ending_index = -1);
         datatype get_min(int start=-1, int end=-1);
@@ -269,7 +273,7 @@ void MyVector<datatype>::show_elements( int starting_index , int ending_index , 
     else
     {
         if( ending_index == -1)
-            get_length();
+            ending_index = get_length();
 
         for(int i=starting_index;i<ending_index;i+= steps)
         {
