@@ -19,9 +19,9 @@ class MyVector
         bool contains_a_vector();
         char get_datatype();
         char compare_two_vectors(MyVector vec_obj1, MyVector vec_obj2);
+        datatype find_min_and_max( string operation, int start=-1, int end=-1);
 
 
-        
     
     public:
         
@@ -53,7 +53,6 @@ class MyVector
         datatype get_product(int starting_index = 0, int ending_index = -1, int steps = 1);
         datatype get_max(int starting_index = -1, int ending_index = -1);
         datatype get_min(int start=-1, int end=-1);
-        datatype find_min_and_max( string operation, int start=-1, int end=-1);
 
 };
 
@@ -197,9 +196,10 @@ void MyVector<datatype>::pop_out()
     }
     else
     {
-        total_elements-=1;
-        datatype *vec_pointer = new datatype[total_elements];
+        datatype *vec_pointer = new datatype[total_elements-1];
         resize_vector(vec_pointer);
+        total_elements-=1;
+        index-=1;
     }
 }
 
