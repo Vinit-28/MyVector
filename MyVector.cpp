@@ -17,6 +17,7 @@ class MyVector
         void resize_vector(datatype *vec_pointer);
         bool contains_a_vector();
         char get_datatype();
+        char compare_two_vectors(MyVector vec_obj1, MyVector vec_obj2);
 
 
         
@@ -34,6 +35,15 @@ class MyVector
         
         bool is_element_exits(datatype data);
         bool operator<( MyVector vec_obj);
+        bool operator>( MyVector vec_obj);
+        bool operator==( MyVector vec_obj);
+        bool operator!=( MyVector vec_obj);
+        bool operator<=( MyVector vec_obj);
+        bool operator>=( MyVector vec_obj);
+
+
+
+
         
         datatype get_element(int ele_index);
         datatype get_sum(int starting_index = 0, int ending_index = -1, int steps = 1);
@@ -495,6 +505,91 @@ datatype MyVector<datatype>:: get_min(int starting_index, int ending_index)
     return min_value;
 }
 
+
+
+// Method to compare two vectors  //
+template<class datatype>
+char MyVector<datatype>:: compare_two_vectors(MyVector vec_obj1, MyVector vec_obj2)
+{
+    char result;
+
+    if( vec_obj1.get_sum() < vec_obj2.get_sum() )
+        result = '<';
+    else if( vec_obj1.get_sum() == vec_obj2.get_sum() )
+        result = '=';
+    else
+        result = '>';
+    
+    return result;
+}
+
+
+
+// Method to overload the '<' operator //
+template<class datatype>
+bool MyVector<datatype>:: operator<(MyVector vec_obj)
+{
+    if ( compare_two_vectors( *this, vec_obj) == '<')
+        return true;
+    return false;
+}
+
+
+
+// Method to overload the '>' operator //
+template<class datatype>
+bool MyVector<datatype>:: operator>(MyVector vec_obj)
+{
+    if ( compare_two_vectors( *this, vec_obj) == '>')
+        return true;
+    return false;
+}
+
+
+
+// Method to overload the '==' operator //
+template<class datatype>
+bool MyVector<datatype>:: operator==(MyVector vec_obj)
+{
+    if ( compare_two_vectors( *this, vec_obj) == '=')
+        return true;
+    return false;
+}
+
+
+
+// Method to overload the '!=' operator //
+template<class datatype>
+bool MyVector<datatype>:: operator!=(MyVector vec_obj)
+{
+    if ( compare_two_vectors( *this, vec_obj) == '=')
+        return false;
+    return true;
+}
+
+
+
+// Method to overload the '<=' operator //
+template<class datatype>
+bool MyVector<datatype>:: operator<=(MyVector vec_obj)
+{
+    char result = compare_two_vectors( *this, vec_obj);
+    if (  result == '<' or result == '=' )
+        return true;
+    return false;
+}
+
+
+
+// Method to overload the '>=' operator //
+template<class datatype>
+bool MyVector<datatype>:: operator>=(MyVector vec_obj)
+{
+    char result = compare_two_vectors( *this, vec_obj);
+    if (  result == '>' or result == '=' )
+        return true;
+    return false;
+}
 
 
 // --------------- End of Class "MyVector"'s Methods Definitions --------------- //
