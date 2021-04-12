@@ -4,6 +4,7 @@
 using namespace std;
 
 
+// Class MyVector to create Vector Objects //
 template<class datatype>
 class MyVector
 {
@@ -55,6 +56,7 @@ class MyVector
         datatype find_min_and_max( string operation, int start=-1, int end=-1);
 
 };
+
 
 
 // --------------- Function Definitions --------------- //
