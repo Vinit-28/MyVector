@@ -1,54 +1,28 @@
-#include "MyVector.cpp"
+#include "MyVector.h"
 
 using namespace std;
 
 
-
-// Trying to Multiply Matrices //
+// Testing of MyVector //
 int main()
 {
 
-    MyVector<MyVector<int>> Mat1,Mat2, Result;
-    MyVector<int> Row;
+    // Created an instance of class MyVector //
+    MyVector<string> vec;
 
-    Row.push_in(1);
-    Row.push_in(2);
-    Row.push_in(3);
+    // Adding elements in the vector //
+    vec.push_in("Vinit");
+    vec.push_in("Sandeep");
+    vec.push_in("Yashwant");
+    vec.push_in("Aman");
+    vec.push_in("Kunal");
 
-    Mat1.push_in(Row);
-    Mat2.push_in(Row);
+    // Sorting the vector data elements //
+    vec.sort(true);
 
-    Row.flush_vector();
+    // Displaying the vector data elements //
+    vec.show_elements(0,vec.get_length(),1);
 
-    Row.push_in(4);
-    Row.push_in(5);
-    Row.push_in(6);
-
-    Mat1.push_in(Row);
-    Mat2.push_in(Row);
-
-    Row.flush_vector();
-
-
-    Row.push_in(7);
-    Row.push_in(8);
-    Row.push_in(9);
-
-    Mat1.push_in(Row);
-    Mat2.push_in(Row);
-
-
-    Result = matrix_multiplication(Mat1,Mat2);
-
-
-    // Printing the Resultant Matrix //
-    for(int i=0;i<Result.get_length();i++)
-    {
-        for(int j=0;j<Result[i].get_length();j++)
-            cout << Result[i][j] << "\t";
-        cout << endl;
-    }
-
-
+    cout<<endl;
     return 0;
 }
