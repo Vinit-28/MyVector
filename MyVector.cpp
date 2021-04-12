@@ -462,7 +462,7 @@ datatype MyVector<datatype>:: find_min_and_max( string operation, int starting_i
         
         for(int index = starting_index; index < ending_index; index++ )
         {
-            if( i < total_elements )
+            if( index < total_elements )
                 if ( (operation == "Max" && vector[index] > value) || (operation == "Min" && vector[index] < value) )
                     value = vector[index];
         }
