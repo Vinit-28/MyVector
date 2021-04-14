@@ -24,6 +24,36 @@ class MyVector
 
     
     public:
+
+        // Declaration of Public Inner Class "MyIterator" //
+        
+        class MyIterator
+        {
+            private:
+
+                datatype *my_iterator, *backup;
+            
+            public:
+
+                MyIterator(MyVector<datatype>&);
+                void restart_iterator();
+                void change_vector(MyVector<datatype>&);
+                
+
+                void operator=(datatype*);
+                bool operator==(datatype*);
+                bool operator!=(datatype*);
+                void operator++();
+                void operator++(int);
+                void operator+=(int);
+                void operator--();
+                void operator--(int);
+                void operator-=(int);
+                datatype operator*();
+
+        };
+
+
         
         // Declaration of Public Member Functions //
        
@@ -53,6 +83,10 @@ class MyVector
         datatype get_product(int starting_index = 0, int ending_index = -1, int steps = 1);
         datatype get_max(int starting_index = -1, int ending_index = -1);
         datatype get_min(int start=-1, int end=-1);
+        datatype *get_iterator();
+        datatype *get_begin();
+        datatype *get_end();
+
 
 };
 
@@ -606,6 +640,155 @@ bool MyVector<datatype>:: operator>=(MyVector vec_obj)
         return true;
     return false;
 }
+
+
+
+// Method to get the address of the first element of the vector //
+template<class datatype>
+datatype *MyVector<datatype>::get_begin()
+{
+    return (&vector[0]);
+}
+
+
+
+// Method to get the address of the last element of the vector //
+template<class datatype>
+datatype *MyVector<datatype>::get_end()
+{
+    return (&vector[total_elements]);
+}
+
+
+
+// ---------- Methods Definition of Class "MyIterator" ---------- //
+
+
+
+// Constructor of Class "MyIterator" //
+template<class datatype>
+MyVector<datatype>::MyIterator::MyIterator(MyVector<datatype> &vec_obj)
+{
+    my_iterator = backup = vec_obj.vector;
+}
+
+
+
+// Method to restart or reposition the iterator to its first position //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: restart_iterator()
+{
+    my_iterator = backup;
+}
+
+
+
+// Method to change the vector object //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: change_vector(MyVector<datatype> &vec_obj)
+{
+    my_iterator = backup = vec_obj.vector;
+}
+
+
+
+// Method to Overload the "=" Operator //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator=(datatype *p)
+{
+    my_iterator = p;
+}
+
+
+
+// Method to Overload the "==" Operator //
+template<class datatype>
+bool MyVector<datatype>::MyIterator:: operator==(datatype *pointer_object)
+{
+    if(pointer_object == my_iterator)
+        return true;
+    return false;
+}
+
+
+
+// Method to Overload the "!=" Operator //
+template<class datatype>
+bool MyVector<datatype>::MyIterator:: operator!=(datatype *pointer_object)
+{
+    if(pointer_object == my_iterator)
+        return false;
+    return true;
+}
+
+
+
+// Method to Overload the "++" Operator ( Pre - Increment ) //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator++()
+{
+    my_iterator++;
+}
+
+
+
+// Method to Overload the "++" Operator ( Post - Increment ) //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator++(int)
+{
+    my_iterator++;
+}
+
+
+
+// Method to Overload the "--" Operator ( Pre - Decrement ) //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator--()
+{
+    my_iterator--;
+}
+
+
+
+// Method to Overload the "--" Operator ( Post - Decrement ) //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator--(int)
+{
+    my_iterator--;
+}
+
+
+
+// Method to Overload the "*" Operator //
+template<class datatype>
+datatype MyVector<datatype>::MyIterator:: operator*()
+{
+    return *my_iterator;
+}
+
+
+
+// Method to Overload the "+=" Operator //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator+=(int Increment)
+{
+    my_iterator+=Increment;
+}
+
+
+
+// Method to Overload the "-=" Operator //
+template<class datatype>
+void MyVector<datatype>::MyIterator:: operator-=(int Decrement)
+{
+    my_iterator-=Decrement;
+}
+
+
+
+// ---------- END of Methods Definition of Class "MyIterator" ---------- //
+
+
 
 
 // --------------- End of Class "MyVector"'s Methods Definitions --------------- //
