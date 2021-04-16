@@ -458,8 +458,7 @@ int MyVector<datatype>:: implement_binary_search(datatype element_to_search)
     }
     else
     {
-        sort(true);
-        int lower=0,upper=(get_length()-1),middle = ((lower+upper)/2);
+        sort();
         while(upper>=lower)
         {
             if( vector[middle] == element_to_search )
