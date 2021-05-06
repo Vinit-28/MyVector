@@ -54,6 +54,14 @@ class MyVector
         };
 
 
+        // Declaration of MyVector Class's Constructor //
+
+        MyVector();
+        MyVector(datatype data[], int data_size);
+        MyVector(string data, int data_size);
+
+
+
         
         // Declaration of Public Member Functions //
        
@@ -181,6 +189,37 @@ bool are_matrices_Compatibility_for_matrix_multiplication( MyVector<MyVector<dat
 
 
 // --------------- Class "MyVector"'s Methods Definitions --------------- //
+
+
+// This is a Defualt Constructor //
+template<class datatype>
+MyVector<datatype> :: MyVector()
+{}
+
+
+
+// This Constructor Will take an array and will push each of its element up to the given length in the current vector //
+template<class datatype>
+MyVector<datatype> :: MyVector(datatype data[], int data_size)
+{
+    for ( int i=0; i<data_size; i++ )
+    {
+        (*this).push_in(data[i]);
+    }
+}
+
+
+
+// This Constructor will take a string and will Push each of its character up to the given lenght in current vector //
+template<class datatype>
+MyVector<datatype> :: MyVector(string data, int data_size)
+{
+    for ( int i=0; i<data_size; i++ )
+    {
+        (*this).push_in(data[i]);
+    }
+}
+
 
 
 // Method to Push data in a Vector //
